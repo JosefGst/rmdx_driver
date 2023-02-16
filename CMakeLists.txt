@@ -102,9 +102,10 @@ find_package(catkin REQUIRED COMPONENTS
 # # DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES rmdx_driver
+  LIBRARIES ${PROJECT_NAME}
 
-  # CATKIN_DEPENDS roscpp serial
+  CATKIN_DEPENDS roscpp serial
+
   # DEPENDS system_lib
 )
 
@@ -120,9 +121,9 @@ include_directories(
 )
 
 # # Declare a C++ library
-# add_library(${PROJECT_NAME}
-# src/${PROJECT_NAME}/rmdx_driver.cpp
-# )
+add_library(${PROJECT_NAME}
+  src/rmdx.cpp
+)
 
 # # Add cmake target dependencies of the library
 # # as an example, code may need to be generated before libraries
@@ -145,9 +146,9 @@ include_directories(
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 # # Specify libraries to link a library or executable target against
-# target_link_libraries(${PROJECT_NAME}_node
-# ${catkin_LIBRARIES}
-# )
+target_link_libraries(${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+)
 
 # ############
 # # Install ##
@@ -171,18 +172,19 @@ include_directories(
 
 # # Mark libraries for installation
 # # See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_libraries.html
-# install(TARGETS ${PROJECT_NAME}
-# ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-# LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-# RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
-# )
+install(TARGETS ${PROJECT_NAME}
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+)
 
 # # Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-# DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-# FILES_MATCHING PATTERN "*.h"
-# PATTERN ".svn" EXCLUDE
-# )
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+
+  # FILES_MATCHING PATTERN "*.h"
+  # PATTERN ".svn" EXCLUDE
+)
 
 # # Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES
@@ -203,6 +205,7 @@ include_directories(
 
 # # Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-add_executable(rmdx_test src/rmdx_test.cpp src/rmdx.cpp)
+add_executable(rmdx_test src/rmdx_test.cpp src/rmdx.cpp include/rmdx_driver/rmdx.h)
 target_link_libraries(rmdx_test ${catkin_LIBRARIES})
-add_dependencies(rmdx_test serial)
+
+# add_dependencies(rmdx_test serial)
