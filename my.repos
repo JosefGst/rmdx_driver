@@ -1,0 +1,5 @@
+repositories:
+    serial:
+        type: git
+        url: git@github.com:wjwwood/serial.git
+        version: main
