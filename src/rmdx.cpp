@@ -182,7 +182,7 @@ uint8_t RMDX::write_pid(uint8_t curr_kp, uint8_t curr_ki, uint8_t spd_kp, uint8_
     for (int i = 0; i < line.size(); i++)
     {
         receive_hex[i] = uint8_t(line[i]);
-        printf("%d, %02x\n", i, receive_hex[i]);
+        // printf("%d, %02x\n", i, receive_hex[i]);
     }
 
     // crc check of received data
