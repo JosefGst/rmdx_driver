@@ -34,6 +34,8 @@ private:
     const uint8_t VEL_CMD = 0xa2;
     const uint8_t READ_STAT = 0x9c;
     const uint8_t RELEASE_BRAKE = 0x77;
+    const uint8_t GET_PID = 0x30;
+    const uint8_t SET_PID = 0x31;
 
     int32_t prev_vel_cmd = 0;
     int8_t vel_update_count = 0;
@@ -53,8 +55,10 @@ public:
 
     // send vel command in degree pser sec
     uint8_t vel_cmd(int32_t speed_dps);
+    uint8_t write_pid(uint8_t curr_kp = 100, uint8_t curr_ki = 50, uint8_t spd_kp = 100, uint8_t spd_ki = 5, uint8_t pos_kp = 100, uint8_t pos_ki = 1);
     // send reading status to motor, get the values with the getter functions, e.g. double get_temp()
     uint8_t read_stat();
+    uint8_t read_pid();
     uint8_t release_brake();
     // returns value in between max and 0. if value is below min it will set to 0, lager as max will set to max
     int16_t limit(int32_t value, int32_t min, int16_t max);
@@ -64,6 +68,8 @@ public:
     double get_torque();
     double get_speed_dps();
     double get_angle();
+    uint8_t get_kp();
+    uint8_t get_ki();
 };
 
 #endif

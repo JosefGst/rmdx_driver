@@ -15,13 +15,28 @@ int main(void)
     motor.get_angle();
     motor.sleep(100);
 
+    motor.read_pid();
+    motor.get_kp();
+    motor.get_ki();
+
+    uint8_t curr_kp = 100;
+    uint8_t curr_ki = 50;
+    uint8_t spd_kp = 50;
+    uint8_t spd_ki = 5;
+    uint8_t pos_kp = 100;
+    uint8_t pos_ki = 1;
+
+    motor.write_pid(curr_kp, curr_ki, spd_kp, spd_ki, pos_kp, pos_ki);
+    motor.get_kp();
+    motor.get_ki();
+
     int32_t prev_vel = 0;
 
     // main loop
     for (double i = 0; i < 10000; i++)
     {
 
-        int32_t vel = 100 * sin(i / 100);
+        int32_t vel = 500 * sin(i / 1000);
         // int32_t vel = 1000;
         // motor.vel_cmd(vel);
 
