@@ -5,7 +5,7 @@ int main(void)
 
     RMDX motor;
     // signal(SIGINT, signal_callback_handler);
-    motor.beginn("/dev/ttyUSB0", 115200, 0x00);
+    motor.beginn("/dev/motorR", 115200, 0x01);
 
     motor.vel_cmd(00);
 
@@ -53,7 +53,7 @@ int main(void)
         {
             motor._serial.close();
             motor.sleep(2500);
-            motor.beginn("/dev/ttyUSB0", 115200, 0x00);
+            motor.beginn("/dev/motorR", 115200, 0x00);
             motor.ERROR_FLAG = motor.vel_cmd(00);
             i = 0;
             motor.ERROR_FLAG = 0;

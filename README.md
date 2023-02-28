@@ -2,7 +2,7 @@
 
 ## Install
 
-    vcs .. import < my.repos
+    vcs import .. < my.repos
 
 ## usage
 
