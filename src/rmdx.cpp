@@ -68,7 +68,7 @@ uint8_t RMDX::vel_cmd(int32_t speed_dps)
     for (int i = 0; i < line.size(); i++)
     {
         receive_hex[i] = uint8_t(line[i]);
-        printf("%d, %02x\n", i, receive_hex[i]);
+        // printf("%d, %02x\n", i, receive_hex[i]);
     }
 
     // crc check of received data
@@ -451,9 +451,9 @@ double RMDX::get_speed_dps()
     return speed_dps;
 }
 
-int32_t RMDX::get_angle()
+int16_t RMDX::get_angle()
 {
-    int32_t angle = receive_hex[9] + (receive_hex[10] << 8);
+    int16_t angle = receive_hex[9] + (receive_hex[10] << 8);
     // printf("angle: %d deg\n", angle);
     return angle;
 }

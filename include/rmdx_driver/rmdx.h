@@ -50,6 +50,10 @@ public:
     int32_t SPEED_MAX = 1000;
     uint8_t ERROR_FLAG = 0; // 1 = crc error, 2 = no message from motor
 
+    int prev_angle = 0;
+    int curr_angle = 0;
+    int abs_angle = 0;
+
     void sleep(unsigned long milliseconds);
 
     serial::Serial _serial;
@@ -71,7 +75,7 @@ public:
     double get_temp();
     double get_torque();
     double get_speed_dps();
-    int32_t get_angle();
+    int16_t get_angle();
     int32_t get_mutli_turn_angle();
     uint8_t get_kp();
     uint8_t get_ki();
