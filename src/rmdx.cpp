@@ -183,6 +183,57 @@ uint8_t RMDX::read_multi_turn()
     return 0;
 }
 
+uint8_t RMDX::read_multi_turn_offset()
+{
+    memset(hex_cmd, 0, sizeof(hex_cmd));
+    hex_cmd[0] = HEADER;
+    hex_cmd[1] = ID;
+    hex_cmd[2] = DATA_LENGHT;
+    hex_cmd[3] = READ_MULTI_TURN_OFFSET;
+
+    // calculate crc
+    unsigned short result = crc16(hex_cmd, sizeof(hex_cmd) - 2);
+    hex_cmd[11] = result & 0x00FF;
+    hex_cmd[12] = result >> 8;
+
+    // cerr << "sent hex_cmd:" << endl;
+    // for (int i = 0; i < 13; i++)
+    // {
+    //     printf("%d, %02x\n", i, hex_cmd[i]);
+    // }
+    _serial.write(hex_cmd, 13);
+
+    // reading
+    auto start = chrono::steady_clock::now();
+    auto end = chrono::steady_clock::now();
+
+    while (!_serial.available())
+    {
+        sleep(5);
+        end = chrono::steady_clock::now();
+        if (chrono::duration_cast<chrono::milliseconds>(end - start).count() > 100)
+            return 2; // wait 100 millis till return error 2
+    }
+    string line = _serial.read(13);
+    // convert string to hex
+
+    for (int i = 0; i < line.size(); i++)
+    {
+        receive_hex[i] = uint8_t(line[i]);
+        printf("%d, %02x\n", i, receive_hex[i]);
+    }
+
+    // crc check of received data
+    result = crc16(receive_hex, sizeof(receive_hex));
+    if (result != 0)
+    {
+        cerr << "crc checking error" << endl;
+        return 1;
+    }
+
+    return 0;
+}
+
 uint8_t RMDX::write_pid(uint8_t curr_kp, uint8_t curr_ki, uint8_t spd_kp, uint8_t spd_ki, uint8_t pos_kp, uint8_t pos_ki)
 {
     memset(hex_cmd, 0, sizeof(hex_cmd));

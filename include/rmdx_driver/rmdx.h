@@ -37,6 +37,7 @@ private:
     const uint8_t GET_PID = 0x30;
     const uint8_t SET_PID = 0x31;
     const uint8_t READ_MULTI_TURN = 0x60;
+    const uint8_t READ_MULTI_TURN_OFFSET = 0x62;
 
     int32_t prev_vel_cmd = 0;
     int8_t vel_update_count = 0;
@@ -60,6 +61,7 @@ public:
     // send reading status to motor, get the values with the getter functions, e.g. double get_temp()
     uint8_t read_stat();
     uint8_t read_multi_turn();
+    uint8_t read_multi_turn_offset();
     uint8_t read_pid();
     uint8_t release_brake();
     // returns value in between max and 0. if value is below min it will set to 0, lager as max will set to max
