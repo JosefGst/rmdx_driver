@@ -31,6 +31,7 @@ int main(void)
     motor.get_ki();
 
     int32_t prev_vel = 0;
+    int overflow_count = 0;
 
     // main loop
     for (double i = 0; i < 10000; i++)
@@ -63,6 +64,9 @@ int main(void)
             prev_vel = vel_fil;
         }
         motor.get_speed_dps();
+
+        motor.read_multi_turn();
+        motor.get_mutli_turn_angle();
 
         while (motor.ERROR_FLAG)
         {
