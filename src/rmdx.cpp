@@ -64,18 +64,24 @@ uint8_t RMDX::vel_cmd(int32_t speed_dps)
     }
     string line = _serial.read(13);
 
+    uint8_t frame[13];
     // convert string to hex
     for (int i = 0; i < line.size(); i++)
     {
-        receive_hex[i] = uint8_t(line[i]);
-        // printf("%d, %02x\n", i, receive_hex[i]);
+        frame[i] = uint8_t(line[i]);
     }
 
     // crc check of received data
-    if (crc16(receive_hex, sizeof(receive_hex)) != 0)
+    if (crc16(frame, sizeof(frame)) != 0)
     {
         cerr << "crc checking error" << endl;
         return 1;
+    }
+    // convert string to hex
+    for (int i = 0; i < line.size(); i++)
+    {
+        receive_hex[i] = frame[i];
+        // printf("%d, %02x\n", i, receive_hex[i]);
     }
 
     return 0;
