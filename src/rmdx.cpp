@@ -446,8 +446,8 @@ double RMDX::get_temp()
 double RMDX::get_torque()
 {
     int16_t torque = receive_hex[5] + (receive_hex[6] << 8);
-    // printf("torque: %d *0.01A\n", torque);
-    return torque;
+    double torque_in_A = (double) torque /100;
+    return torque_in_A;
 }
 
 double RMDX::get_speed_dps()
