@@ -48,30 +48,30 @@ int main(void)
 
         int32_t vel = 500 * sin(i / 1000);
         // int32_t vel = 1000;
-        // motor.vel_cmd(vel);
+        motor.vel_cmd(vel);
 
-        // // motor.read_stat();
+        // motor.read_stat();
 
-        // // motor.get_temp();
-        // // motor.get_torque();
-        // motor.get_speed_dps();
-        // // motor.get_angle();
+        // motor.get_temp();
+        // motor.get_torque();
+        motor.get_speed_dps();
+        // motor.get_angle();
 
         // filtering the vel cmd
-        // int32_t vel_fil = motor.limit_dif(vel, prev_vel, motor.SPEED_DIF_MIN, motor.SPEED_DIF_MAX);
-        // vel_fil = motor.limit(vel_fil, motor.SPEED_MIN, motor.SPEED_MAX);
-        // // cout << "vel: " << vel << "   prev_vel: " << prev_vel << "   vel_fil: " << vel_fil << endl;
+        int32_t vel_fil = motor.limit_dif(vel, prev_vel, motor.SPEED_DIF_MIN, motor.SPEED_DIF_MAX);
+        vel_fil = motor.limit(vel_fil, motor.SPEED_MIN, motor.SPEED_MAX);
+        // cout << "vel: " << vel << "   prev_vel: " << prev_vel << "   vel_fil: " << vel_fil << endl;
 
-        // if (prev_vel == vel_fil)
-        // {
-        //     // cout << "same" << endl;
-        //     motor.ERROR_FLAG = motor.read_stat();
-        // }
-        // else
-        // {
-        //     motor.ERROR_FLAG = motor.vel_cmd(vel_fil);
-        //     prev_vel = vel_fil;
-        // }
+        if (prev_vel == vel_fil)
+        {
+            // cout << "same" << endl;
+            motor.ERROR_FLAG = motor.read_stat();
+        }
+        else
+        {
+            motor.ERROR_FLAG = motor.vel_cmd(vel_fil);
+            prev_vel = vel_fil;
+        }
         motor.vel_cmd(vel);
         motor.get_speed_dps();
 

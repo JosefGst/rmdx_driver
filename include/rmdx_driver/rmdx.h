@@ -44,10 +44,10 @@ private:
 
 public:
     // motor config
-    uint16_t SPEED_DIF_MIN = 50; // the diff between a new speed command must be bigger as this value, otherwise will not take new command
+    uint16_t SPEED_DIF_MIN = 30; // the diff between a new speed command must be bigger as this value, otherwise will not take new command
     uint16_t SPEED_DIF_MAX = 55;
     int16_t SPEED_MIN = 50;
-    int32_t SPEED_MAX = 1000;
+    int32_t SPEED_MAX = 3000;
     uint8_t ERROR_FLAG = 0; // 1 = crc error, 2 = no message from motor
 
     int prev_angle = 0;
