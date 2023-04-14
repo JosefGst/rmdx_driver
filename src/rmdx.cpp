@@ -124,7 +124,7 @@ uint8_t RMDX::read_stat()
     for (int i = 0; i < line.size(); i++)
     {
         receive_hex[i] = uint8_t(line[i]);
-        printf("%d, %02x\n", i, receive_hex[i]);
+        // printf("%d, %02x\n", i, receive_hex[i]);
     }
 
     // crc check of received data
@@ -175,7 +175,7 @@ uint8_t RMDX::read_multi_turn()
     for (int i = 0; i < line.size(); i++)
     {
         receive_hex[i] = uint8_t(line[i]);
-        printf("%d, %02x\n", i, receive_hex[i]);
+        // printf("%d, %02x\n", i, receive_hex[i]);
     }
 
     // crc check of received data
