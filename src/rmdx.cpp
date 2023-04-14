@@ -250,10 +250,10 @@ uint8_t RMDX::write_pid(uint8_t curr_kp, uint8_t curr_ki, uint8_t spd_kp, uint8_
 
     // set speed
     // cerr << "vel target: " << speed_dps << endl;
-    hex_cmd[5] = curr_kp & 0xFF;
-    hex_cmd[6] = curr_ki & 0xFF;
-    hex_cmd[7] = spd_kp & 0xFF;
-    hex_cmd[8] = spd_ki & 0xFF;
+    hex_cmd[5] = curr_kp;
+    hex_cmd[6] = curr_ki;
+    hex_cmd[7] = spd_kp;
+    hex_cmd[8] = spd_ki;
     hex_cmd[9] = pos_kp & 0xFF;
     hex_cmd[10] = pos_ki & 0xFF;
     // calculate crc
